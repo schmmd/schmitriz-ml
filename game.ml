@@ -83,16 +83,6 @@ let clear_rows game =
     (* put an empty row at the top *)
     game.matrix.(height - 1) <- Array.create width None
   in
-  (*
-  let invert_rows image rows =
-    let inv_vec = Array.map (fun c -> inv_color c) in
-    let matrix = Graphics.dump_image image in
-    Graphics.make_image
-         (Array.mapi 
-         (fun i x -> if (List.mem i rows) then inv_vec x else x) 
-            matrix)
-  in
-  *)
   let rows = find_full_rows 0 [] in
   List.iter (fun j -> remove_row j) rows
 
@@ -144,10 +134,6 @@ and grav_handler (g, chin) =
           then (8.0 -. ((float_of_int game.lines) /. 20.0)) /. 10.0
           else (0.2 -. (((float_of_int (game.lines - 120)) /. 20.0)) /. 40.0)
         in
-        (*print_string ((string_of_int game.level) ^ " lines " ^ 
-                      (string_of_int game.lines) ^ " with delay " ^
-                      (string_of_float delay_time) ^ "\n");
-                      flush stdout;*)
         (* delay the thread *)
         let _ = Thread.delay delay_time in
         (* poll channel to see if we should abort thread *)
